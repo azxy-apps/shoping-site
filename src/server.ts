@@ -10,7 +10,7 @@ const port: any = process.env.PORT || 5000;
 app.use(morgan('tiny'));
 
 app.get('/api/hello', (req, res) => {
-    res.send({ express: 'Hello From Express of Shoping site, auto deployment enabled.' });
+    res.send({ express: 'Hello From Express of Shoping site, auto deployment enabled. Changed' });
 });
 
 if (process.env.NODE_ENV === 'production') {
