@@ -5,12 +5,12 @@ import logo from './logo.svg';
 
 class App extends React.Component {
   public state = {
-    response: ''
+    response: []
   };
 
   public componentDidMount() {
     this.callApi()
-      .then(res => this.setState({ response: res.express }))
+      .then(res => this.setState({ response: res }))
       .catch(err => console.log(err));
   }
 
@@ -21,13 +21,13 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React!!</h1>
         </header>
-        <p className="App-intro">{this.state.response}</p>
+        <p className="App-intro">{this.state.response.map((x: any, i) => <div key={i}>{x.name}</div>)}</p>
       </div>
     );
   }
 
   private callApi = async () => {
-    const response = await fetch('/api/hello');
+    const response = await fetch('/api/product');
     const body = await response.json();
 
     if (response.status !== 200) {
