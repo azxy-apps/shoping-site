@@ -1,7 +1,6 @@
 {
     "extends": [
-        "tslint:recommended",
-        "tslint-config-prettier"
+        "tslint:recommended"
     ],
     "linterOptions": {
         "exclude": [
@@ -22,6 +21,7 @@
         "comment-format": false,
         "ordered-imports": false,
         "jsx-no-lambda": false,
-        "max-classes-per-file": false
+        "max-classes-per-file": false,
+        "quotemark":false
     }
 }

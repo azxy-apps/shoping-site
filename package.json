@@ -12,21 +12,19 @@
     },
     "scripts": {
         "start": "node dist/server.js",
-        "heroku-postbuild": "npm run build-ts && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-        "client": "cd client && npm start",
-        "server": "nodemon dist/server.js",
-        "build-ts": "tsc",
-        "watch-ts": "tsc -w",
+        "heroku-postbuild": "npm run build-server && npm run build-client",
+        "build-client": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+        "build-server": "npm run tslint && tsc",
         "tslint": "tslint -c tslint.json -p tsconfig.json",
         "copy-static-assets": "ts-node copyStaticAssets.ts",
-        "dev": "concurrently --kill-others-on-fail \"npm run watch-ts\" \"npm run server\" \"npm run client\"",
-        "trigger": "npm run watch-ts | npm run server | npm run client"
+        "dev": "concurrently --kill-others-on-fail  \"nodemon\" \"cd client && npm start\""
     },
     "nodemonConfig": {
         "watch": [
-            "src"
+            "src/*.ts"
         ],
         "ext": "ts",
+        "exec":"ts-node src/server.ts",
         "ignore": [
             "*.test.ts"
         ],
@@ -47,6 +45,7 @@
         "mongodb": "^3.1.6",
         "morgan": "^1.9.1",
         "nodemon": "^1.18.4",
+        "ts-node": "^7.0.1",
         "shelljs": "^0.8.2",
         "tslint": "^5.11.0",
         "typescript": "^3.1.1"

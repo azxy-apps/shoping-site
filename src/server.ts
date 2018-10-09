@@ -6,13 +6,14 @@ import { MongoClient } from "mongodb";
 
 import app from "./app";
 
-const port = process.env.PORT || 5000;
+const port: any = process.env.PORT || 5000;
 const url = "mongodb://admin:Shopingsite123@ds027748.mlab.com:27748/shoping-site";
 
-let db, client;
+let db;
+let client;
 
 /*
-*   This GET API to get the list of available products 
+*   This GET API to get the list of available products
 */
 app.get('/api/product', async (req, res) => {
     console.log('Get products');
@@ -28,7 +29,7 @@ app.get('/api/product', async (req, res) => {
 });
 
 /*
-*   This POST API to create a product 
+*   This POST API to create a product
 */
 app.post('/api/product', async (req, res) => {
     console.log('Insert product');
@@ -43,15 +44,14 @@ app.post('/api/product', async (req, res) => {
     }
 });
 
-
 /*
-*   PROD related 
+*   PROD related
 */
 if (process.env.NODE_ENV === 'production') {
-    // Serve any static files 
+    // Serve any static files
     app.use(express.static(path.join(__dirname, '/../client/build')));
     // Handle React routing, return all requests to React app
-    app.get('*', function (req, res) {
+    app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
     });
 }
