@@ -228,6 +228,34 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          // "sass" loader is used to support sass files
+          // "typings-for-css-modules" loader resolves paths in CSS and adds assets as dependencies.
+          // "style" loader turns CSS into JS modules that inject <style> tags.
+          // In production, we use a plugin to extract that CSS to a file, but
+          // in development "style" loader enables hot editing of CSS.
+          {
+            test: /\.scss$/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: 'typings-for-css-modules-loader',
+                options: {
+                  modules: true,
+                  namedExport: true,
+                  localIdentName: '[name]__[local]__[hash:base64:5]',
+                }
+              },
+              require.resolve('sass-loader')
+            ]
+          },
+          // To load svg files
+          {
+            test: /\.svg$/,
+            exclude: /(node_modules|excluded-svg-loader-icons)/,
+            use: [
+              require.resolve('svg-react-loader'),
+            ]
+          },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader doesn't use a "test" so it will catch all modules
@@ -238,7 +266,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
+            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.scsss$/],
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
