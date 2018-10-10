@@ -1,7 +1,8 @@
 import * as React from 'react';
-import './App.css';
 
-import logo from './logo.svg';
+import Layout from 'src/containers/layout/layout';
+import * as classes from './app.scss';
+import Counter from 'src/components/counter';
 
 class App extends React.Component {
   public state = {
@@ -16,13 +17,10 @@ class App extends React.Component {
 
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React!!</h1>
-        </header>
-        <p className="App-intro">{this.state.response.map((x: any, i) => <div key={i}>{x.name}</div>)}</p>
-      </div>
+      <>
+        <Layout />
+        <p>{this.state.response.map((x: any, i) => <div key={i}>{x.name}</div>)}</p>
+      </>
     );
   }
 
