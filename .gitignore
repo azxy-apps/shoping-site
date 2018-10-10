@@ -2,16 +2,13 @@
 
 # dependencies
 /node_modules
+/client/node_modules
 
 # testing
 /coverage
 
 # production
 /build
-
-$ js files
-**/*.js
-**/*.js.map
 
 # misc
 .DS_Store
