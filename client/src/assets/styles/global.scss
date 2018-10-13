@@ -2,8 +2,10 @@
 @import './animations.scss';
 
 body {
-    font-family: Georgia, serif !important;
-    font-size: $fontsize-default !important;
-    font-weight: normal !important;
+    font-family: $font-family;
+    font-size: $fontsize-default;
+    font-weight: normal;
     box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
 }

@@ -1,0 +1,19 @@
+@import 'src/assets/styles/global.scss';
+.header {
+    font-weight: bold;
+    color: $color-primary;
+}
+
+.box {
+    border: 1px solid $color-border-grey;
+    margin: 20px;
+    padding: 20px;
+}
+
+.link {
+    color: $color-primary;
+    &:hover {
+        color: $color-secondary;
+        cursor: pointer;
+    }
+}
