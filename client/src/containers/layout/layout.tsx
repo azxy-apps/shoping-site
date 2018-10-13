@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as classes from './layout.scss';
+import Counter from 'src/components/counter';
 
 class Layout extends React.Component {
 
@@ -12,8 +13,8 @@ class Layout extends React.Component {
             <>
                 <div className={classes.layout}>
                     This is layout
+                    <Counter/>
                 </div>
-                {this.props.children}
             </>
         );
     }

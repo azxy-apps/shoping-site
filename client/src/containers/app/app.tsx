@@ -3,36 +3,26 @@ import * as React from 'react';
 import Layout from 'src/containers/layout/layout';
 import * as classes from './app.scss';
 import Counter from 'src/components/counter';
+import { Route } from 'react-router-dom';
+import Products from '../products/products';
+import ProductDetails from '../products/productdetails/productdetails';
 
 class App extends React.Component {
   public state = {
     response: []
   };
 
-  public componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res }))
-      .catch(err => console.log(err));
-  }
-
   public render() {
     return (
       <>
         <Layout />
-        <p>{this.state.response.map((x: any, i) => <div key={i}>{x.name}</div>)}</p>
+        <Route extact={true} path="/products" component={Products} />
+        <Route extact={true} path="/product/:id" component={ProductDetails} />
+        <Route extact={true} path="/editproduct/:id" component={ProductDetails} />
+        <Route extact={true} path="/addproduct" component={ProductDetails} />
       </>
     );
   }
-
-  private callApi = async () => {
-    const response = await fetch('/api/product');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    return body;
-  };
 }
 
 export default App;
