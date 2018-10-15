@@ -20,7 +20,6 @@ router.use((req, res, next) => {
 router.route('/product')
     .get(async (req, res) => {
         console.log('Get products');
-        console.log('abc --->', schema);
         try {
             client = await MongoClient.connect(url, { useNewUrlParser: true });
             console.log("connected to mongo");
@@ -82,7 +81,7 @@ router.route('/product/:id')
         }
     });
 
-app.use('/api', router); */
+app.use('/api', router);
 
 /*
 *   PROD related
