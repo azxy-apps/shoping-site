@@ -22,6 +22,8 @@
         "ordered-imports": false,
         "jsx-no-lambda": false,
         "max-classes-per-file": false,
-        "quotemark":false
+        "quotemark":false,
+        "no-require-imports": false,
+        "no-var-requires": false
     }
 }

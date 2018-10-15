@@ -1,3 +1,7 @@
+Dev : https://shoping-site-dev.herokuapp.com/
+
+Prod: https://shoping-site.herokuapp.com/
+
 # A shopping site.
 
 ## Prerequisites

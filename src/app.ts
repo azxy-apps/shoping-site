@@ -1,6 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+<<<<<<< HEAD
+import config from "./config";
+import mongoose from "mongoose";
+=======
+>>>>>>> 8c65ce4fc5635f65dc63ea7c34e37bf8495e6964
 
 class App {
     public app: express.Application;
@@ -8,10 +13,22 @@ class App {
     constructor() {
         this.app = express();
         this.config();
+        this.mongoSetup();
+    }
+
+    private mongoSetup(): void {
+        mongoose.Promise = global.Promise;
+        console.log('Connecting :', config.db.mongodb.host);
+        mongoose.connect(config.db.mongodb.host);
+        console.log('Connected :', config.db.mongodb.host);
     }
 
     private config() {
+
         this.app.use(morgan('tiny'));
+
+        // set ENV config
+        this.app.set('config', config);
 
         // this will let us get the data from a POST
         this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,6 +53,10 @@ class App {
             // Pass to next layer of middleware
             next();
         });
+
+        // set router
+        require("./route")(this.app);
+
     }
 }
 
