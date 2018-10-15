@@ -9,7 +9,7 @@ import app from "./app";
 const port: any = process.env.PORT || 5000;
 const url = "mongodb://admin:Shopingsite123@ds027748.mlab.com:27748/shoping-site";
 
-/* 
+/*
 // middleware to use for all requests
 router.use((req, res, next) => {
     // do logging

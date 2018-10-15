@@ -1,6 +1,6 @@
 'use strict';
 
-let cfg = {
+const cfg = {
     'appname': 'shoping-site-api',
     'baseurl': process.env.BASEURL || 'http://localhost',
     'paths': {},

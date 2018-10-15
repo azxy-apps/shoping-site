@@ -1,5 +1,5 @@
 import express from "express";
-import { productService } from "../service";
+import { ProductService } from "../service";
 import commonValidator from "../helper/commonValidator";
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.get('/', commonValidator)
         // validate the req
 
         // Call service method
-        let response = await productService.getAllProduct();
+        const response = await ProductService.getAllProduct();
         return res.json(response);
     });
 
@@ -24,7 +24,7 @@ router.post('/', commonValidator)
         // validate the req
 
         // Call service method
-        let response = await productService.addNewProduct(req.body);
+        const response = await ProductService.addNewProduct(req.body);
 
         return res.json(response);
     });

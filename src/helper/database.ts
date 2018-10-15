@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+/* let mongoose = require('mongoose');
 
 const server = '127.0.0.1:27017'; // REPLACE WITH YOUR DB SERVER
 const database = 'shoping-site';      // REPLACE WITH YOUR DB NAME
@@ -17,4 +17,4 @@ _connect() {
        })
   }
 }
-module.exports = new Database()
+module.exports = new Database() */
