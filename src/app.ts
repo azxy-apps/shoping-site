@@ -1,11 +1,9 @@
 import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
-<<<<<<< HEAD
-import config from "./config";
 import mongoose from "mongoose";
-=======
->>>>>>> 8c65ce4fc5635f65dc63ea7c34e37bf8495e6964
+
+import config from "./config";
 
 class App {
     public app: express.Application;
