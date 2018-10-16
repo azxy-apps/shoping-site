@@ -3,7 +3,14 @@ import { Product } from "../model/productModel";
 export class ProductService {
 
     public static async getAllProduct() {
-        const products = await Product.find({});
+        let products = null;
+        console.log('product service: before find');
+        try {
+            products = await Product.find({});
+            console.log('product service: after find: ', products);
+        } catch (error) {
+            console.log('product service error: ', error);
+        }
 
         return products;
     }

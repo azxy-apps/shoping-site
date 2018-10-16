@@ -10,9 +10,12 @@ const router = express.Router();
 router.get('/', commonValidator)
     .get('/', async (req, res) => {
         // validate the req
+        console.log('product controller: before call');
 
         // Call service method
         const response = await ProductService.getAllProduct();
+        console.log('product controller: after call: ', response);
+
         return res.json(response);
     });
 
