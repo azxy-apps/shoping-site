@@ -1,11 +1,9 @@
 {
-    "name": "shopping-site",
+    "name": "shopping-site-api",
     "version": "1.0.0",
-    "desciption": "A shopping site.",
-    "proxy": "http://localhost:5000",
+    "desciption": "Shopping site API server.",
     "cacheDirectories": [
-        "node_modules",
-        "client/node_modules"
+        "node_modules"
     ],
     "repository": {
         "type": "git",
@@ -13,13 +11,11 @@
     },
     "scripts": {
         "start": "node dist/server.js",
-        "heroku-postbuild": "npm run build-server && npm run build-client",
-        "build-client": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-        "build-server": "npm run tslint && tsc",
+        "heroku-postbuild": "npm run build",
+        "build": "npm run tslint && tsc",
         "tslint": "tslint -c tslint.json -p tsconfig.json",
         "copy-static-assets": "ts-node copyStaticAssets.ts",
-        "dev": "concurrently --kill-others-on-fail  \"nodemon --inspect\" \"cd client && npm start\"",
-        "dev-debug": "concurrently --kill-others-on-fail  \"nodemon --inspect\" \"cd client && npm start\""
+        "dev": "nodemon"
     },
     "nodemonConfig": {
         "watch": [
