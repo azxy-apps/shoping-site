@@ -82,17 +82,6 @@ router.route('/product/:id')
     });
 
 app.use('/api', router);
-
-/*
-*   PROD related
 */
-if (process.env.NODE_ENV === 'production') {
-    // Serve any static files
-    app.use(express.static(path.join(__dirname, '/../client/build')));
-    // Handle React routing, return all requests to React app
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '/../client/build', 'index.html'));
-    });
-}
 
-app.listen(port, () => debug(`Listening  on port ${chalk.green(port)}`));
+app.listen(port, () => console.log(`Listening  on port ${chalk.green(port)}`));
