@@ -1,35 +1,51 @@
 import express from "express";
 import { ProductService } from "../service";
-import commonValidator from "../helper/commonValidator";
-
-const router = express.Router();
-
+import commonValidatorRouter from "../helper/commonValidator";
+const productRouter = express.Router();
 /*
-*   This GET API to get the list of available products
+*   This GET API to get the available products
 */
-router.get('/', commonValidator)
+productRouter.get('/', commonValidatorRouter)
     .get('/', async (req, res) => {
-        // validate the req
-        console.log('product controller: before call');
-
         // Call service method
         const response = await ProductService.getAllProduct();
-        console.log('product controller: after call: ', response);
-
         return res.json(response);
+    })
+    .get('/:id', async (req, res) => {
+        // Call service method
+        const response = await ProductService.getProductById(req.params.id);
+        return res.json(response);
+    });
+/*
+*   This POST API to add the products
+*/
+productRouter.post('/', commonValidatorRouter)
+    .post('/', async (req, res) => {
+        // Call service method
+        const response = await ProductService.addNewProduct(req.body);
+        return res.json(response);
+    });
+/*
+*   This PUT API to save the products
+*/
+productRouter.put('/', commonValidatorRouter)
+    .put('/', async (req, res) => {
+        const response = await ProductService.updateProduct(req.body);
+        return response;
     });
 
 /*
-*   This GET API to get the list of available products
+*   This DELETE API to remove the products
 */
-router.post('/', commonValidator)
-    .post('/', async (req, res) => {
-        // validate the req
-
+productRouter.delete('/', commonValidatorRouter)
+    .delete('/:id', async (req, res) => {
         // Call service method
-        const response = await ProductService.addNewProduct(req.body);
-
+        const response = await ProductService.deleteProduct({ _id: req.params.id });
+        return res.json(response);
+    })
+    .delete('/', async (req, res) => {
+        // Call service method
+        const response = await ProductService.deleteProducts(req.body);
         return res.json(response);
     });
-
-export default router;
+export default productRouter;
