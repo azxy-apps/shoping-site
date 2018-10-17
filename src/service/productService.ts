@@ -45,14 +45,14 @@ export class ProductService {
 
     public static async deleteProduct(body: any) {
         let product = null;
-        product = await Product.deleteOne({ _id: body._id }, { $set: body });
+        product = await Product.deleteOne({ _id: body._id });
         // close db connection
         return product;
     }
 
     public static async deleteProducts(body: any) {
         let product = null;
-        product = await Product.deleteMany({ _id: body._Query }, { $set: body });
+        product = await Product.deleteMany({ _id: body._Query });
         // close db connection
         return product;
     }
