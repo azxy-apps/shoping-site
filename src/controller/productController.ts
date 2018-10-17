@@ -31,7 +31,7 @@ productRouter.post('/', commonValidatorRouter)
 productRouter.put('/', commonValidatorRouter)
     .put('/', async (req, res) => {
         const response = await ProductService.updateProduct(req.body);
-        return response;
+        return res.json(response);
     });
 
 /*
