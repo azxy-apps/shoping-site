@@ -52,7 +52,7 @@ class App {
             next();
         });
 
-        // set router
+        // set router for application
         require("./route")(this.app);
 
     }
