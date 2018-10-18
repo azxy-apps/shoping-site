@@ -76,7 +76,7 @@ class App {
             next();
         });
 
-        // create response
+        // create response structure
         this.app.use((req, res: any, next) => {
             res.api = {
                 'status': 200,
@@ -88,6 +88,7 @@ class App {
         });
 
         // set router
+        // set router for application
         require("./route")(this.app);
 
         // handle 404
