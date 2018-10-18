@@ -10,11 +10,11 @@
         "url": "https://github.com/azxy-apps/shoping-site.git"
     },
     "scripts": {
-        "start": "node dist/server.js",
+        "start": "NODE_ENV=production node dist/server.js",
+        "start:dev": "NODE_ENV=development nodemon app.ts",
         "heroku-postbuild": "npm run build",
         "build": "npm run tslint && tsc",
         "tslint": "tslint -c tslint.json -p tsconfig.json",
-        "copy-static-assets": "ts-node copyStaticAssets.ts",
         "dev": "nodemon"
     },
     "nodemonConfig": {
@@ -29,19 +29,22 @@
         "delay": "3"
     },
     "dependencies": {
+        "@types/bunyan": "^1.8.5",
         "@types/express": "^4.16.0",
         "@types/mongodb": "^3.1.11",
         "@types/mongoose": "^5.2.19",
         "@types/morgan": "^1.7.35",
         "@types/node": "^10.11.4",
         "@types/shelljs": "^0.8.0",
+        "bunyan": "^1.8.12",
         "concurrently": "^4.0.1",
         "express": "^4.16.3",
+        "express-request-id": "^1.4.1",
+        "lodash": "^4.17.11",
         "mongodb": "^3.1.6",
         "mongoose": "^5.3.2",
         "morgan": "^1.9.1",
         "nodemon": "^1.18.4",
-        "shelljs": "^0.8.2",
         "ts-node": "^7.0.1",
         "typescript": "^3.1.1"
     },
