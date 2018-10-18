@@ -2,8 +2,13 @@ import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import addReqId from "express-request-id";
+import _ from "lodash";
 
+import logger from "./helper/logger";
 import config from "./config";
+import router from "./route";
+import errorHandler from "./helper/errorhandler";
 
 class App {
     public app: express.Application;
@@ -23,10 +28,19 @@ class App {
 
     private config() {
 
+        // to add unique-ids to requests
+        this.app.use(addReqId());
+
         this.app.use(morgan('tiny'));
 
         // set ENV config
         this.app.set('config', config);
+
+        // Log common fields
+        this.app.use((req: any, res, next) => {
+            logger.set(req);
+            next();
+        });
 
         // this will let us get the data from a POST
         this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,10 +66,32 @@ class App {
             next();
         });
 
-        // set router for application
-        require("./route")(this.app);
+        // create response structure
+        this.app.use((req: any, res: any, next) => {
+            res.api = {
+                requestId: req.id,
+                status: null,
+                isSuccessful: false,
+                error: null,
+                result: null,
+            };
+            res.setStatus = (isSuccessful, statusCode) => {
+                res.api.isSuccessful = isSuccessful;
+                res.api.status = statusCode;
+                res.status(statusCode);
+            };
 
+            next();
+        });
+
+        // set router for application
+        router(this.app);
+
+        // to handle errors
+        errorHandler(this.app);
     }
 }
 
-export default new App().app;
+const app = new App().app;
+
+export default app;
