@@ -7,6 +7,8 @@ import _ from "lodash";
 
 import logger from "./helper/logger";
 import config from "./config";
+import router from "./route";
+import errorHandler from "./helper/errorhandler";
 
 class App {
     public app: express.Application;
@@ -34,21 +36,9 @@ class App {
         // set ENV config
         this.app.set('config', config);
 
-        // add logger
-        this.app.set('log', logger);
-
         // Log common fields
         this.app.use((req: any, res, next) => {
-            req.app.set('logEntry', {
-                'serviceName': config.appname,
-                'method': req.method,
-                'request': req.originalUrl,
-                'query': req.query,
-                'protocol': req.protocol,
-                'ip': req.ip,
-                'requestId': req.id,
-            });
-
+            logger.set(req);
             next();
         });
 
@@ -77,79 +67,28 @@ class App {
         });
 
         // create response structure
-        this.app.use((req, res: any, next) => {
+        this.app.use((req: any, res: any, next) => {
             res.api = {
-                'status': 200,
-                'errors': {},
-                'data': [],
+                requestId: req.id,
+                status: null,
+                isSuccessful: false,
+                error: null,
+                result: null,
+            };
+            res.setStatus = (isSuccessful, statusCode) => {
+                res.api.isSuccessful = isSuccessful;
+                res.api.status = statusCode;
+                res.status(statusCode);
             };
 
             next();
         });
 
-        // set router
         // set router for application
-        require("./route")(this.app);
+        router(this.app);
 
-        // handle 404
-        this.app.use((req, res: any) => {
-            res.api.status = 404;
-            res.status(res.api.status);
-
-            // setting appropriate error objects
-            res.api.errors.code = 'endpoint';
-            res.api.errors.message = 'API endpoint does not exist';
-
-            req.app.get('log').warn(_.assignIn(req.app.get('logEntry'), {
-                'message': 'API endpoint does not exist',
-                'status': res.api.status,
-            }));
-
-            res.json(res.api);
-        });
-
-        // handle errors
-        this.app.use((err, req, res, next) => {
-            if (!err) {
-                return next();
-            }
-
-            // catch invalid json in request body
-            if (err instanceof SyntaxError && 'body' in err) {
-
-                res.api.status = 400;
-                res.status(res.api.status);
-
-                // setting appropriate error objects
-                res.api.errors.code = 'body';
-                res.api.errors.message = 'Invalid input';
-
-                req.app.get('log').warn(_.assignIn(req.app.get('logEntry'), {
-                    'message': 'Invalid input',
-                    'status': res.api.status,
-                    'error': err,
-                }));
-
-                return res.json(res.api);
-            }
-
-            // setting appropriate error objects
-            res.api.errors.code = 'endpoint';
-            res.api.errors.message = 'Oops something broke!';
-
-            res.api.status = 500;
-            res.status(res.api.status);
-
-            req.app.get('log').error(_.assignIn(req.app.get('logEntry'), {
-                'message': 'Internal server error',
-                'status': res.api.status,
-                'error': err,
-                'stack': err.stack,
-            }));
-
-            res.json(res.api);
-        });
-
+        // to handle errors
+        errorHandler(this.app);
     }
 }
 

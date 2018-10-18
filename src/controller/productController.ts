@@ -3,6 +3,7 @@ import _ from "lodash";
 
 import { ProductService } from "../service";
 import commonValidatorRouter from "../helper/commonValidator";
+import logger from '../helper/logger';
 
 const productRouter = express.Router();
 
@@ -11,67 +12,98 @@ const productRouter = express.Router();
 */
 productRouter.get('/', commonValidatorRouter)
     .get('/', async (req, res: any, next) => {
-        let response;
         // validate the req
 
         // Call service method
         try {
-            response = await ProductService.getAllProduct();
+            res.api.result = await ProductService.getAllProduct();
+
+            logger.info("Product details are fetched successfully");
+
+            res.setStatus(true, 200);
+            return res.json(res.api);
 
         } catch (error) {
             next(error);
         }
-
-        res.api.status = 200;
-        res.status(res.api.status);
-
-        req.app.get('log').info(_.assignIn(req.app.get('logEntry'), {
-            'status': res.api.status,
-        }));
-
-        return res.json(response);
     })
 
     /*
     *   This GET API to get the product by id
     */
-    .get('/:id', async (req, res) => {
+    .get('/:id', async (req, res: any, next) => {
         // Call service method
-        const response = await ProductService.getProductById(req.params.id);
-        return res.json(response);
+        try {
+            res.api.result = await ProductService.getProductById(req.params.id);
+
+            res.setStatus(true, 200);
+            return res.json(res.api);
+
+        } catch (error) {
+            next(error);
+        }
     });
 
 /*
 *   This POST API to add the products
 */
 productRouter.post('/', commonValidatorRouter)
-    .post('/', async (req, res) => {
+    .post('/', async (req, res: any, next) => {
         // Call service method
-        const response = await ProductService.addNewProduct(req.body);
-        return res.json(response);
+
+        try {
+            res.api.result = await ProductService.addNewProduct(req.body);
+
+            res.setStatus(true, 200);
+            return res.json(res.api);
+
+        } catch (error) {
+            next(error);
+        }
     });
 
 /*
 *   This PUT API to save the products
 */
 productRouter.put('/', commonValidatorRouter)
-    .put('/', async (req, res) => {
-        const response = await ProductService.updateProduct(req.body);
-        return res.json(response);
+    .put('/', async (req, res: any, next) => {
+        try {
+            res.api.result = await ProductService.updateProduct(req.body);
+
+            res.setStatus(true, 200);
+            return res.json(res.api);
+
+        } catch (error) {
+            next(error);
+        }
     });
 
 /*
 *   This DELETE API to remove the products
 */
 productRouter.delete('/', commonValidatorRouter)
-    .delete('/:id', async (req, res) => {
+    .delete('/:id', async (req, res: any, next) => {
         // Call service method
-        const response = await ProductService.deleteProduct({ _id: req.params.id });
-        return res.json(response);
+        try {
+            res.api.result = await ProductService.deleteProduct({ _id: req.params.id });
+
+            res.setStatus(true, 200);
+            return res.json(res.api);
+        } catch (error) {
+            next(error);
+        }
     })
-    .delete('/', async (req, res) => {
+    .delete('/', async (req, res: any, next) => {
         // Call service method
-        const response = await ProductService.deleteProducts(req.body);
-        return res.json(response);
+        try {
+            res.api.result = await ProductService.deleteProducts(req.body);
+
+            res.setStatus(true, 200);
+            return res.json(res.api);
+
+        } catch (error) {
+            next(error);
+        }
     });
+
 export default productRouter;
