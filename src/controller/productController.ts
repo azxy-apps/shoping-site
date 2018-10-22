@@ -9,26 +9,26 @@ import logger from '../helper/logger';
 import nodemailer from "nodemailer";
 import xoauth2 from "xoauth2";
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        xoauth2: xoauth2.createXOAuth2Generator({
-            user: 'kottara.developers@gmail.com',
-            clientId: '911300546326-fc8ikb5sj8h5jciavqqkv0og27njeg7o.apps.googleusercontent.com',
-            clientSecret: '_xxpT-Q58fVJN6PAGmFRIJAO',
-            refreshToken: '1/O56QbbRPkmx2BP5dGFRA5L9DDELjutFMUynprU4lM-s',
-            // pass: 'Pwcwelcome1'
-        }),
-    },
-});
-
 // const transporter = nodemailer.createTransport({
 //     service: 'gmail',
 //     auth: {
-//         user: 'kottara.developers@gmail.com',
-//         pass: 'Pwcwelcome1'
-//     }
+//         xoauth2: xoauth2.createXOAuth2Generator({
+//             user: 'kottara.developers@gmail.com',
+//             clientId: '911300546326-fc8ikb5sj8h5jciavqqkv0og27njeg7o.apps.googleusercontent.com',
+//             clientSecret: '_xxpT-Q58fVJN6PAGmFRIJAO',
+//             refreshToken: '1/O56QbbRPkmx2BP5dGFRA5L9DDELjutFMUynprU4lM-s',
+//             // pass: 'Pwcwelcome1'
+//         }),
+//     },
 // });
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'kottara.developers@gmail.com',
+        pass: 'Pwcwelcome1',
+    },
+});
 
 const mailOptions = {
     from: 'kottara.developers@gmail.com',
