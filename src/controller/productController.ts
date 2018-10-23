@@ -5,6 +5,38 @@ import { ProductService } from "../service";
 import commonValidatorRouter from "../helper/commonValidator";
 import logger from '../helper/logger';
 
+/* testing email*/
+import nodemailer from "nodemailer";
+import xoauth2 from "xoauth2";
+
+//const transporter = nodemailer.createTransport({
+//    service: 'gmail',
+ //   auth: {
+  //      xoauth2: xoauth2.createXOAuth2Generator({
+ //           user: 'kottara.developers@gmail.com',
+ //           clientId: '911300546326-fc8ikb5sj8h5jciavqqkv0og27njeg7o.apps.googleusercontent.com',
+ //           clientSecret: '_xxpT-Q58fVJN6PAGmFRIJAO',
+ //           refreshToken: '1/O56QbbRPkmx2BP5dGFRA5L9DDELjutFMUynprU4lM-s',
+            // pass: 'Pwcwelcome1'
+  //      }),
+ //   },
+//});
+
+const transporter = nodemailer.createTransport({
+service: 'gmail',
+auth: {
+    user: 'kottara.developers@gmail.com',
+    pass: 'Pwcwelcome1'
+     }, 
+ });
+
+const mailOptions = {
+    from: 'kottara.developers@gmail.com',
+    to: 'shoping-site@googlegroups.com',
+    subject: 'testing email from node.js 001',
+    text: '03 configuration with oauth2 approach',
+};
+
 const productRouter = express.Router();
 
 /*
@@ -39,6 +71,24 @@ productRouter.get('/', commonValidatorRouter)
             res.setStatus(true, 200);
             return res.json(res.api);
 
+        } catch (error) {
+            next(error);
+        }
+    })
+
+    /*
+    *   This GET API to get the product by id
+    */
+    .get('/emailTesting', async (req, res: any, next) => {
+        // Call service method
+        try {
+            transporter.sendMail(mailOptions, async (err, info) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('email sent:' + info.response);
+                }
+            });
         } catch (error) {
             next(error);
         }

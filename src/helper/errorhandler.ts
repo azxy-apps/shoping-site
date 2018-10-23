@@ -4,8 +4,7 @@ export default (app: any) => {
 
     // handle 404
     app.use((req, res: any) => {
-        res.api.status = 404;
-        res.status(res.api.status);
+        res.setStatus(false, 404);
 
         // setting appropriate error objects
         res.api.error = {
@@ -30,8 +29,7 @@ export default (app: any) => {
         // catch invalid json in request body
         if (err instanceof SyntaxError && 'body' in err) {
 
-            res.api.status = 400;
-            res.status(res.api.status);
+            res.setStatus(false, 400);
 
             // setting appropriate error objects
             res.api.error = {
@@ -53,8 +51,7 @@ export default (app: any) => {
             message: 'Oops something broke!',
         };
 
-        res.api.status = 500;
-        res.status(res.api.status);
+        res.setStatus(false, 500);
 
         logger.error("Unhandled exception occured", {
             res,

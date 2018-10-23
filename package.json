@@ -30,22 +30,32 @@
     "dependencies": {
         "@types/bunyan": "^1.8.5",
         "@types/express": "^4.16.0",
+        "@types/gridfs-stream": "^0.5.30",
         "@types/mongodb": "^3.1.11",
         "@types/mongoose": "^5.2.19",
         "@types/morgan": "^1.7.35",
+        "@types/multer-gridfs-storage": "^3.1.1",
         "@types/node": "^10.11.4",
         "@types/shelljs": "^0.8.0",
         "bunyan": "^1.8.12",
         "concurrently": "^4.0.1",
         "express": "^4.16.3",
         "express-request-id": "^1.4.1",
+        "gridfs-stream": "^1.1.1",
         "lodash": "^4.17.11",
         "mongodb": "^3.1.6",
         "mongoose": "^5.3.2",
         "morgan": "^1.9.1",
+<<<<<<< HEAD
+        "multer": "^1.4.1",
+        "multer-gridfs-storage": "^3.2.3",
+=======
+>>>>>>> d27a002a593820fd2131e2bcc2324a4f141c5019
+        "nodemailer": "^4.6.8",
         "nodemon": "^1.18.4",
         "ts-node": "^7.0.1",
-        "typescript": "^3.1.1"
+        "typescript": "^3.1.1",
+        "xoauth2": "^1.2.0"
     },
     "devDependencies": {
         "@types/debug": "0.0.31",

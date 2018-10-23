@@ -21,6 +21,7 @@ export class ProductService {
             console.log('product service: after find: ', products);
         } catch (error) {
             console.log('product service error: ', error);
+            throw(error);
         }
         // close db connection
         return product;
