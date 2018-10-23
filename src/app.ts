@@ -4,11 +4,13 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import addReqId from "express-request-id";
 import _ from "lodash";
+import passport from "passport";
 
 import logger from "./helper/logger";
 import config from "./config";
 import router from "./route";
 import errorHandler from "./helper/errorhandler";
+import passportSetup from "./config/passport-setup";
 
 class App {
     public app: express.Application;
@@ -28,6 +30,7 @@ class App {
 
     private config() {
 
+        const pass = passportSetup(passport);
         // to add unique-ids to requests
         this.app.use(addReqId());
 
