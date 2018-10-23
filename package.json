@@ -46,11 +46,8 @@
         "mongodb": "^3.1.6",
         "mongoose": "^5.3.2",
         "morgan": "^1.9.1",
-<<<<<<< HEAD
         "multer": "^1.4.1",
         "multer-gridfs-storage": "^3.2.3",
-=======
->>>>>>> d27a002a593820fd2131e2bcc2324a4f141c5019
         "nodemailer": "^4.6.8",
         "nodemon": "^1.18.4",
         "ts-node": "^7.0.1",
