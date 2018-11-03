@@ -36,11 +36,14 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 
+
+
 /*
 *   Google redirect
 */
 router.get('/google/redirect', passport.authenticate('google') ,async (req, res: any, next) => {
 
+    console.log("12345678")
     res.send('google redirect');
 
 

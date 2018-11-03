@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import addReqId from "express-request-id";
 import _ from "lodash";
-import passport from "passport";
+// import passport from "passport";
 
 import logger from "./helper/logger";
 import config from "./config";
@@ -30,7 +30,7 @@ class App {
 
     private config() {
 
-        const pass = passportSetup(passport);
+        passportSetup();
         // to add unique-ids to requests
         this.app.use(addReqId());
 

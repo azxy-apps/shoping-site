@@ -1,7 +1,9 @@
 import GoogleStrategy from "passport-google-oauth20";
+import passport from "passport";
+
+export default () =>{
 
 
-export default (passport) =>{
     passport.use(
         new GoogleStrategy({
             callbackURL: '/auth/google/redirect',
@@ -11,7 +13,7 @@ export default (passport) =>{
             // callback
             console.log('passport call back fired');
             console.log(profile);
-            done();
+
         })
     );
 
